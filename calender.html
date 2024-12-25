@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIND YOUR STRENGTH - Workout Calendar</title>
+    <style>
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray-100: #f5f5f5;
+            --color-gray-200: #eeeeee;
+            --color-gray-300: #e0e0e0;
+            --color-gray-800: #333333;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-white);
+            color: var(--color-black);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+        }
+
+        .action-button {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .month {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .month h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 0 0 1.5rem 0;
+            text-transform: uppercase;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 2px;
+        }
+
+        th {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            padding: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+
+        td {
+            height: 80px;
+            background-color: var(--color-gray-100);
+            padding: 0.5rem;
+            vertical-align: top;
+            position: relative;
+        }
+
+        .workout {
+            margin: 0.25rem 0;
+            padding: 0.5rem;
+            background-color: var(--color-white);
+            border: 1px solid var(--color-gray-300);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            display: none;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .workout.completed {
+            background-color: var(--color-gray-200);
+            text-decoration: line-through;
+        }
+
+        .tick-btn {
+            position: absolute;
+            right: 0.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: 50%;
+            width: 1.25rem;
+            height: 1.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .tick-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        @media (max-width: 1200px) {
+            .calendar-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calendar-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="main-title">YOUR FITNESS JOURNEY</h1>
+        <p class="subtitle">TRACK YOUR PROGRESS. INSIDE AND OUT.</p>
+    </header>
+
+    <main class="container">
+        <button class="action-button" id="show-workouts">REVEAL WORKOUTS</button>
+        <div class="calendar-container" id="calendar-container"></div>
+    </main>
+
+    <script>
+        // Calendar Class
+        class Calendar {
+            constructor() {
+                this.monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                this.today = new Date();
+                this.year = this.today.getFullYear();
+                this.container = document.getElementById('calendar-container');
+            }
+
+            getFirstDayOfMonth(year, month) {
+                return new Date(year, month, 1).getDay();
+            }
+
+            getDaysInMonth(year, month) {
+                return new Date(year, month + 1, 0).getDate();
+            }
+
+            createMonthGrid(month) {
+                const firstDay = this.getFirstDayOfMonth(this.year, month);
+                const daysInMonth = this.getDaysInMonth(this.year, month);
+
+                const monthDiv = document.createElement('div');
+                monthDiv.classList.add('month');
+                monthDiv.innerHTML = `<h2>${this.monthNames[month]}</h2>`;
+
+                const table = this.createTable(firstDay, daysInMonth, month);
+                monthDiv.appendChild(table);
+                return monthDiv;
+            }
+
+            createTable(firstDay, daysInMonth, month) {
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                `;
+                
+                const tbody = this.createTableBody(firstDay, daysInMonth, month);
+                table.appendChild(tbody);
+                return table;
+            }
+
+            createTableBody(firstDay, daysInMonth, month) {
+                const tbody = document.createElement('tbody');
+                let row = document.createElement('tr');
+
+                for (let i = 0; i < firstDay; i++) {
+                    row.appendChild(document.createElement('td'));
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const cell = document.createElement('td');
+                    cell.textContent = day;
+                    
+                    const dateString = `${this.year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    cell.setAttribute('data-date', dateString);
+                    
+                    row.appendChild(cell);
+
+                    if ((day + firstDay) % 7 === 0) {
+                        tbody.appendChild(row);
+                        row = document.createElement('tr');
+                    }
+                }
+
+                tbody.appendChild(row);
+                return tbody;
+            }
+
+            render() {
+                for (let month = 0; month < 12; month++) {
+                    const monthGrid = this.createMonthGrid(month);
+                    this.container.appendChild(monthGrid);
+                }
+            }
+        }
+
+        // Workout Manager Class
+        class WorkoutManager {
+            constructor() {
+                this.workouts = JSON.parse(localStorage.getItem('workouts')) || [];
+                this.showWorkoutsButton = document.getElementById('show-workouts');
+                this.init();
+            }
+
+            init() {
+                this.renderWorkouts();
+                this.bindEvents();
+            }
+
+            renderWorkouts() {
+                this.workouts.forEach(workout => {
+                    const cell = document.querySelector(`td[data-date="${workout.date}"]`);
+                    if (cell) {
+                        const workoutDiv = this.createWorkoutElement(workout);
+                        cell.appendChild(workoutDiv);
+                    }
+                });
+            }
+
+            createWorkoutElement(workout) {
+                const workoutDiv = document.createElement('div');
+                workoutDiv.classList.add('workout');
+                if (workout.completed) {
+                    workoutDiv.classList.add('completed');
+                }
+                
+                workoutDiv.textContent = `${workout.workout} - ${workout.reps} Reps x ${workout.sets} Sets`;
+                
+                const tickButton = this.createTickButton(workout, workoutDiv);
+                workoutDiv.appendChild(tickButton);
+                
+                return workoutDiv;
+            }
+
+            createTickButton(workout, workoutDiv) {
+                const tickButton = document.createElement('button');
+                tickButton.classList.add('tick-btn');
+                tickButton.textContent = '✓';
+                
+                tickButton.addEventListener('click', () => {
+                    workoutDiv.classList.toggle('completed');
+                    workout.completed = !workout.completed;
+                    localStorage.setItem('workouts', JSON.stringify(this.workouts));
+                });
+                
+                return tickButton;
+            }
+
+            bindEvents() {
+                this.showWorkoutsButton.addEventListener('click', () => {
+                    const workoutElements = document.querySelectorAll('.workout');
+                    workoutElements.forEach(workout => {
+                        workout.style.display = 'block';
+                    });
+                });
+            }
+        }
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendar = new Calendar();
+            calendar.render();
+            new WorkoutManager();
+        });
+    </script>
+</body>
+</html>

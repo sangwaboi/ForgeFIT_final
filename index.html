@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORGEFIT - Fitness Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-primary: 'Inter', sans-serif;
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-800: #1f2937;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--color-black);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 1.5rem 0;
+            background: var(--color-white);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--color-black);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-black);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .btn-join {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-join:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 6rem;
+            text-align: center;
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-video {
+            width: 100%;
+            border-radius: var(--border-radius);
+            margin-top: 3rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-video img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--color-white);
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Training Section */
+        .trainings {
+            padding: 4rem 0;
+            background: var(--color-white);
+        }
+
+        .training-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .training-card {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .training-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .training-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .training-card-title {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            color: var(--color-white);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Membership Section */
+        .membership {
+            padding: 4rem 0;
+            background: var(--color-gray-100);
+        }
+
+        .membership-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .membership-card {
+            padding: 2rem;
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .membership-card-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 4rem 0;
+        }
+
+        .footer .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-section a {
+            color: var(--color-gray-200);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--color-white);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .video-overlay {
+                font-size: 2rem;
+            }
+
+            .training-grid,
+            .membership-grid,
+            .footer .container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+        .feature {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/9;
+    cursor: pointer;
+    transition: var(--transition);
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.feature img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.feature::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.feature h2, .feature p {
+    position: relative;
+    z-index: 3;
+    color: var(--color-white);
+    width: 100%;
+    padding: 0 20px; /* Add some padding for better text spacing */
+}
+
+.feature h2 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.feature p {
+    font-size: 18px;
+}
+
+.features {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 80px 0;
+}
+
+/* Add hover effect */
+.feature:hover img {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">FORGEFIT</a>
+            <div class="nav-links">
+                <a href="about.html">About</a>
+                <a href="custom.html">Trainings</a>
+                <a href="calender.html">Progress</a>
+                <a href="recommandtion.html">Recommendation</a>
+                <a href="contact.html">Contacts</a>
+                <a href="P" class="btn-join">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <p class="hero-subtitle">ACHIEVE YOUR FITNESS GOALS</p>
+                <h1 class="hero-title">FIND YOUR<br>STRENGTH</h1>
+                <div class="hero-video">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Workout">
+                    <div class="video-overlay">
+                        INSIDE<br>AND OUT.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container features">
+            <div class="feature" onclick="window.location.href='custom.html'">
+                <img src="https://images.unsplash.com/photo-1571388208497-71bedc66e932?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Group Fitness">
+                <h2>Custom Workouts</h2>
+                <p>Tailored exercise plans for your fitness goals</p>
+            </div>
+            
+            <div class="feature" onclick="window.location.href='calender.html'">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Personal Training">
+
+                <h2>Progress Tracking</h2>
+                <p>Monitor your fitness journey in real-time</p>
+            </div>
+            
+            <div class="feature" onclick="window.location.href='recommandtion.html'">
+                <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Functional Training">
+
+                <h2>Recommendation</h2>
+                <p>Increase the intensity of the workout</p>
+            </div>
+        </section>
+
+        
+    </main>
+    
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <h3>Workout Planner</h3>
+                <p>Your personal fitness companion</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="about.html">About</a>
+                <a href="terms$conditions.html">Terms and Conditions</a>
+                <a href="bmiCalculator.html">Calculate BMI</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <a href="contact.html">Contact</a>
+                <a href="https://www.acefitness.org/resources/everyone/blog/">Blogs</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

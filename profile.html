@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORGEFIT - Your Fitness Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Theme Variables */
+        :root {
+            --color-black: #000000;
+            --color-white: #FFFFFF;
+            --color-gray-100: #F5F5F5;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.5;
+            color: var(--color-black);
+            background-color: var(--color-gray-100);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--color-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-black);
+            font-weight: 600;
+        }
+
+        .button {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--color-black);
+            border-radius: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        /* Profile Container Styles */
+        .container {
+            max-width: 1440px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .profile-container {
+            background: var(--color-white);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 480px;
+            margin: 2rem auto;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .heading-lg {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Profile Picture Styles */
+        .profile-pic-container {
+            position: relative;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        #profilePicPreview {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--color-black);
+            transition: all 0.3s ease;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--color-black);
+            border-radius: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-label:hover {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--color-black);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-black);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Message Styles */
+        .message {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            display: none;
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        /* Image Display Styles */
+        .level-image,
+        .goal-image {
+            width: 100%;
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            display: none;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">FORGEFIT</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="custom.html">Trainings</a>
+            <a href="recommandtion.html">Recommendation</a>
+            <a href="contact.html">Contacts</a>
+        </div>
+        <button href="profile.html" class="button">Profile</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h1 class="heading-lg">YOUR PROFILE</h1>
+                <p>Build your fitness journey</p>
+            </div>
+            
+            <div class="profile-pic-container">
+                <img id="profilePicPreview" src="https://via.placeholder.com/150" alt="Profile Picture">
+                <input type="file" id="profilePicInput" class="file-input" accept="image/*" onchange="previewProfilePic(event)">
+                <label for="profilePicInput" class="file-label">Change Photo</label>
+            </div>
+
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="Enter your age">
+                </div>
+                
+                <div class="form-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" placeholder="Enter your height">
+                </div>
+                
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="Enter your weight">
+                </div>
+                
+                <div class="form-group">
+                    <label for="level">Fitness Level</label>
+                    <select id="level" onchange="showLevelImage()">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="professional">Professional</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goal">Fitness Goal</label>
+                    <select id="goal" onchange="showGoalImage()">
+                        <option value="fat_loss">Fat Loss</option>
+                        <option value="weight_gain">Weight Gain</option>
+                    </select>
+                </div>
+
+                <button type="button" class="button" onclick="submitForm()">Save Profile</button>
+            </form>
+
+            <div class="message" id="message">Profile Updated Successfully!</div>
+            
+            <div class="images-container">
+                <img id="beginnerImage" class="level-image" src="beginner.jpg" alt="Beginner">
+                <img id="intermediateImage" class="level-image" src="intermediate.jpg" alt="Intermediate">
+                <img id="professionalImage" class="level-image" src="professional.jpg" alt="Professional">
+                
+                <img id="fatLossImage" class="goal-image" src="https://www.aaynaclinic.com/wp-content/uploads/2021/01/weightLoss-Intro.jpg.webp" alt="Fat Loss">
+                <img id="weightGainImage" class="goal-image" src="https://sa1s3optim.patientpop.com/assets/images/provider/photos/2500467.jpg" alt="Weight Gain">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const elements = {
+            profilePicPreview: document.getElementById('profilePicPreview'),
+            profilePicInput: document.getElementById('profilePicInput'),
+            name: document.getElementById('name'),
+            age: document.getElementById('age'),
+            height: document.getElementById('height'),
+            weight: document.getElementById('weight'),
+            level: document.getElementById('level'),
+            goal: document.getElementById('goal'),
+            message: document.getElementById('message')
+        };
+
+        // Profile Management
+        function loadProfile() {
+            const savedProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            
+            if (savedProfile.profilePic) {
+                elements.profilePicPreview.src = savedProfile.profilePic;
+            }
+
+            elements.name.value = savedProfile.name || '';
+            elements.age.value = savedProfile.age || '';
+            elements.height.value = savedProfile.height || '';
+            elements.weight.value = savedProfile.weight || '';
+            elements.level.value = savedProfile.level || 'beginner';
+            elements.goal.value = savedProfile.goal || 'fat_loss';
+
+            showLevelImage();
+            showGoalImage();
+        }
+
+        function saveProfile() {
+            const profile = {
+                profilePic: elements.profilePicPreview.src,
+                name: elements.name.value,
+                age: elements.age.value,
+                height: elements.height.value,
+                weight: elements.weight.value,
+                level: elements.level.value,
+                goal: elements.goal.value
+            };
+
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+        }
+
+        // Form Submission
+        function submitForm() {
+            saveProfile();
+            showMessage();
+        }
+
+        // UI Updates
+        function showMessage() {
+            elements.message.style.display = 'block';
+            setTimeout(() => elements.message.style.display = 'none', 2000);
+        }
+
+        function previewProfilePic(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    elements.profilePicPreview.src = e.target.result;
+                    saveProfile();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Image Display Functions
+        function showLevelImage() {
+            const images = {
+                beginner: document.getElementById('beginnerImage'),
+                intermediate: document.getElementById('intermediateImage'),
+                professional: document.getElementById('professionalImage')
+            };
+
+            Object.values(images).forEach(img => img.style.display = 'none');
+            images[elements.level.value].style.display = 'block';
+        }
+
+        function showGoalImage() {
+            const fatLossImage = document.getElementById('fatLossImage');
+            const weightGainImage = document.getElementById('weightGainImage');
+            
+            fatLossImage.style.display = 'none';
+            weightGainImage.style.display = 'none';
+
+            if (elements.goal.value === 'fat_loss') {
+                fatLossImage.style.display = 'block';
+            } else {
+                weightGainImage.style.display = 'block';
+            }
+        }
+
+        // Event Listeners
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('input', saveProfile);
+        });
+
+        // Initialize
+        loadProfile();
+    </script>
+</body>
+</html>

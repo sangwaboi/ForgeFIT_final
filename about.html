@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ForgeFit</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+
+        .header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 24px;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .join-button {
+            background: #000;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .hero {
+            padding: 80px 40px;
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .features {
+            background: #f8f8f8;
+            padding: 80px 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .mission {
+            text-align: center;
+            padding: 80px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mission h2 {
+            font-size: 36px;
+            margin-bottom: 24px;
+            font-weight: 800;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 80px 40px;
+            background: #000;
+            color: #fff;
+        }
+
+        .cta h2 {
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            background: #fff;
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #f0f0f0;
+        }
+
+        strong {
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">FORGEFIT</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="custom.html">Features</a>
+            <a href="recommandtion.html">Recommendation</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <a href="profile.html" class="join-button">Profile</a>
+    </header>
+
+    <section class="hero">
+        <h1>FIND YOUR<br>STRENGTH<br>INSIDE AND OUT</h1>
+        <p>Welcome to ForgeFit — your ultimate workout companion. Whether you're just starting out or crushing personal bests, we're here to help you achieve your fitness goals.</p>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Personalized Fitness Plans</h3>
+                <p>Get workouts that actually match YOUR vibe, goals, and schedule. No cookie-cutter programs here.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Track Like a Pro</h3>
+                <p>Reps, sets, PRs — ForgeFit tracks it all and makes it look GOOD with sleek charts and analytics.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Built for Real People</h3>
+                <p>Whether you're here for the gains, the vibes, or both — we've got you covered with easy-to-use tools.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission">
+        <h2>FITNESS SHOULD BE ACCESSIBLE TO EVERYONE</h2>
+        <p>Because fitness isn't one-size-fits-all. ForgeFit is here to make workouts accessible, fun, and super motivating. We're all about helping you smash your goals and feel unstoppable.</p>
+    </section>
+
+    <section class="cta">
+        <h2>Ready to Transform?</h2>
+        <p>Join the ForgeFit community and let's hit those goals together. The future you is waiting!</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-button">Learn More</a>
+            <a href="#" class="cta-button">Sign Up Now</a>
+        </div>
+    </section>
+</body>
+</html>

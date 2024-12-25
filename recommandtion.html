@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZONIXX - Workout Planner</title>
+    <style>
+        :root {
+            --primary-black: #000000;
+            --primary-white: #ffffff;
+            --accent-gray: #f4f4f4;
+            --text-gray: #333333;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-white);
+            color: var(--primary-black);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--primary-white);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: var(--primary-black);
+        }
+
+        .join-btn {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--primary-white);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-top: 1rem;
+        }
+
+        .membership {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .membership-tiers {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+
+        .tier {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .star {
+            font-size: 1.5rem;
+            color: var(--primary-black);
+        }
+
+        .planner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .form-container {
+            background: var(--primary-white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin: 1.5rem 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--text-gray);
+            border-radius: 4px;
+            background-color: var(--primary-white);
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:disabled {
+            background-color: var(--accent-gray);
+            cursor: not-allowed;
+        }
+
+        #workout-display {
+            background: var(--primary-white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise-card {
+            background: var(--accent-gray);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .exercise-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .exercise-card p {
+            margin: 0;
+            color: var(--text-gray);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">FORGEFIT</div>
+        <div class="nav-links">
+            <a href="#">About</a>
+            <a href="#">Trainings</a>
+            <a href="#">Testimonials</a>
+            <a href="#">Contacts</a>
+        </div>
+        <button class="join-btn">JOIN TODAY</button>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>FIND YOUR<br>STRENGTH</h1>
+            <p class="subtitle">ACHIEVE YOUR FITNESS GOALS</p>
+        </section>
+
+        <section class="planner-container">
+            <div class="form-container">
+                <h2>CUSTOMIZE YOUR WORKOUT</h2>
+                <div class="form-group">
+                    <label for="fitness-level">FITNESS LEVEL</label>
+                    <select id="fitness-level">
+                        <option value="">Select Fitness Level</option>
+                        <option value="beginner">BEGINNER</option>
+                        <option value="intermediate">INTERMEDIATE</option>
+                        <option value="pro">PRO</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="body-part">BODY PART</label>
+                    <select id="body-part">
+                        <option value="">Select Body Part</option>
+                        <option value="chest">CHEST</option>
+                        <option value="legs">LEGS</option>
+                        <option value="back">BACK</option>
+                        <option value="shoulders">SHOULDERS</option>
+                    </select>
+                </div>
+                
+                <button id="generate-workout" disabled>GENERATE WORKOUT</button>
+            </div>
+            
+            <div id="workout-display"></div>
+        </section>
+
+        <section class="membership">
+            <h2>THE CLUB</h2>
+            <div class="membership-tiers">
+                <div class="tier">
+                    <h3>BASIC</h3>
+                    <span class="star">★</span>
+                </div>
+                <div class="tier">
+                    <h3>PREMIUM</h3>
+                    <span class="star">★</span>
+                </div>
+                <div class="tier">
+                    <h3>ELITE</h3>
+                    <span class="star">★</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const workoutData = {
+            beginner: {
+                chest: [
+                    { name: 'Push-ups', sets: 3, reps: 10 },
+                    { name: 'Bench Press', sets: 3, reps: 8 },
+                    { name: 'Chest Dips', sets: 2, reps: 8 }
+                ],
+                legs: [
+                    { name: 'Bodyweight Squats', sets: 3, reps: 12 },
+                    { name: 'Lunges', sets: 3, reps: 10 },
+                    { name: 'Step-ups', sets: 2, reps: 10 }
+                ],
+                back: [
+                    { name: 'Pull-ups', sets: 3, reps: 6 },
+                    { name: 'Inverted Rows', sets: 3, reps: 10 },
+                    { name: 'Superman Hold', sets: 2, reps: 12 }
+                ],
+                shoulders: [
+                    { name: 'Pike Push-ups', sets: 3, reps: 10 },
+                    { name: 'Lateral Raises', sets: 3, reps: 12 },
+                    { name: 'Front Raises', sets: 2, reps: 10 }
+                ]
+            }
+        };
+
+        class WorkoutPlanner {
+            constructor() {
+                this.fitnessLevelSelect = document.getElementById('fitness-level');
+                this.bodyPartSelect = document.getElementById('body-part');
+                this.generateWorkoutBtn = document.getElementById('generate-workout');
+                this.workoutDisplay = document.getElementById('workout-display');
+                
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                this.fitnessLevelSelect.addEventListener('change', () => this.updateButtonState());
+                this.bodyPartSelect.addEventListener('change', () => this.updateButtonState());
+                this.generateWorkoutBtn.addEventListener('click', () => this.generateWorkout());
+            }
+
+            updateButtonState() {
+                this.generateWorkoutBtn.disabled = !this.fitnessLevelSelect.value || !this.bodyPartSelect.value;
+            }
+
+            generateWorkout() {
+                const fitnessLevel = this.fitnessLevelSelect.value;
+                const bodyPart = this.bodyPartSelect.value;
+                
+                this.workoutDisplay.innerHTML = '';
+                
+                const workout = workoutData[fitnessLevel][bodyPart];
+                
+                const workoutTitle = document.createElement('h2');
+                workoutTitle.textContent = `${fitnessLevel.toUpperCase()} ${bodyPart.toUpperCase()} WORKOUT`;
+                this.workoutDisplay.appendChild(workoutTitle);
+                
+                workout.forEach(exercise => {
+                    const exerciseCard = this.createExerciseCard(exercise);
+                    this.workoutDisplay.appendChild(exerciseCard);
+                });
+            }
+
+            createExerciseCard(exercise) {
+                const exerciseCard = document.createElement('div');
+                exerciseCard.classList.add('exercise-card');
+                
+                const exerciseName = document.createElement('h3');
+                exerciseName.textContent = exercise.name;
+                
+                const exerciseDetails = document.createElement('p');
+                exerciseDetails.textContent = `SETS: ${exercise.sets} | REPS: ${exercise.reps}`;
+                
+                exerciseCard.appendChild(exerciseName);
+                exerciseCard.appendChild(exerciseDetails);
+                
+                return exerciseCard;
+            }
+        }
+
+        new WorkoutPlanner();
+    </script>
+</body>
+</html>

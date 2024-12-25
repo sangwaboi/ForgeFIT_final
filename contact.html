@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Fitness Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .contact-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-form label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #555;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+        <p>We're here to help you with any questions or issues you may have about our fitness tracker application.</p>
+    </header>
+
+    <div class="container">
+        <div class="contact-form">
+            <h2>Get in Touch</h2>
+            <form action="mailto:forgiefit@gmail.com" method="post" enctype="text/plain">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Fitness Tracker Application. All Rights Reserved.</p>
+    </div>
+</body>
+</html>

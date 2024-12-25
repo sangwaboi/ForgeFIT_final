@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Workout Input</title>
+    <style>
+        :root {
+            --primary-black: #000000;
+            --primary-white: #ffffff;
+            --background-light: #f5f5f5;
+            --text-gray: #666666;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--primary-black);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            margin: 2rem auto;
+            padding: 2.5rem;
+        }
+
+        .heading-large {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: var(--primary-white);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-gray);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--background-light);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--background-light);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-black);
+            background-color: var(--primary-white);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+        }
+
+        input[type="date"]:disabled {
+            background-color: #eee;
+            cursor: not-allowed;
+        }
+
+        .button-primary {
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            padding: 0.75rem 2rem;
+            border-radius: 2rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .button-secondary {
+            background-color: transparent;
+            color: var(--text-gray);
+            padding: 0.75rem 2rem;
+            border-radius: 2rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            border: 2px solid var(--text-gray);
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .button-secondary:hover {
+            background-color: var(--text-gray);
+            color: var(--primary-white);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading-large">Custom Training
+            Workout</h1>
+        <div class="form-container">
+            <form id="workout-form">
+                <div class="form-group">
+                    <label for="workout">Workout Name</label>
+                    <input type="text" id="workout" name="workout" placeholder="e.g., Push-ups" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="reps">Reps</label>
+                    <input type="number" id="reps" name="reps" min="1" placeholder="e.g., 10" required>
+                </div>
+                <div class="form-group">
+                    <label for="sets">Sets</label>
+                    <input type="number" id="sets" name="sets" min="1" placeholder="e.g., 3" required>
+                </div>
+                <button type="submit" class="button-primary">Save Workout</button>
+            </form>
+            <button id="clear-storage" class="button-secondary">Clear All Workouts</button>
+        </div>
+    </div>
+
+    <script>
+        // Set minimum date to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        dateInput.value = today;
+
+        document.getElementById('workout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const workoutData = {
+                workout: document.getElementById('workout').value,
+                date: document.getElementById('date').value,
+                reps: document.getElementById('reps').value,
+                sets: document.getElementById('sets').value
+            };
+
+            const workouts = JSON.parse(localStorage.getItem('workouts')) || [];
+            workouts.push(workoutData);
+            localStorage.setItem('workouts', JSON.stringify(workouts));
+
+            // Show success message
+            const button = this.querySelector('.button-primary');
+            const originalText = button.textContent;
+            button.textContent = 'Workout Saved!';
+            button.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = 'var(--primary-black)';
+                this.reset();
+                dateInput.value = today; // Reset date to today after form reset
+            }, 2000);
+        });
+
+        document.getElementById('clear-storage').addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all workouts?')) {
+                localStorage.removeItem('workouts');
+                this.textContent = 'All Workouts Cleared!';
+                setTimeout(() => {
+                    this.textContent = 'Clear All Workouts';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
